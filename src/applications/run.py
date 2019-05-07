@@ -183,7 +183,7 @@ elif args.dset == 'uos':
         'n_nbrs': 2,
         'scale_nbr': 2,
         'spec_ne': 600,
-        'spec_lr': 1e-3,
+        'spec_lr': 2e-3,
         'spec_patience': 30,
         'spec_drop': 0.1,
         'batch_size': 128,
