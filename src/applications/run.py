@@ -12,8 +12,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),'..'))
 import argparse
 from collections import defaultdict
 
-from core.data import get_data
-from spectralnet import run_net
+from src.core.data import get_data
+from src.applications.spectralnet import run_net
 
 # PARSE ARGUMENTS
 parser = argparse.ArgumentParser()
@@ -166,7 +166,40 @@ elif args.dset == 'cc_semisup':
         'use_all_data': False,
         }
     params.update(cc_semisup_params)
-
+elif args.dset == 'uos':
+    uos_params = {
+        # data generation parameters
+        'train_set_fraction': 1.,       # fraction of the dataset to use for training
+        'noise_sig': 0.1,               # variance of the gaussian noise applied to x
+        'n': 1500,                      # number of total points in dataset
+        'D':100,
+        'd':10,
+        'K':2,
+        'N_k':200,
+        # training parameters
+        'n_clusters': 2,
+        'use_code_space': False,
+        'affinity': 'full',
+        'n_nbrs': 2,
+        'scale_nbr': 2,
+        'spec_ne': 300,
+        'spec_lr': 1e-3,
+        'spec_patience': 30,
+        'spec_drop': 0.1,
+        'batch_size': 128,
+        'batch_size_orthonorm': 128,
+        'spec_reg': None,
+        'arch': [
+            {'type': 'softplus', 'size': 100},
+            {'type': 'BatchNormalization'},
+            {'type': 'softplus', 'size': 100},
+            {'type': 'BatchNormalization'},
+            {'type': 'softplus', 'size': 100},
+            {'type': 'BatchNormalization'},
+            ],
+        'use_all_data': True,
+        }
+    params.update(uos_params)
 # LOAD DATA
 data = get_data(params)
 
