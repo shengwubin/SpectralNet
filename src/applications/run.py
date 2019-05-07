@@ -179,7 +179,7 @@ elif args.dset == 'uos':
         # training parameters
         'n_clusters': 2,
         'use_code_space': False,
-        'affinity': 'full',
+        'affinity': 'gram',
         'n_nbrs': 2,
         'scale_nbr': 2,
         'spec_ne': 300,

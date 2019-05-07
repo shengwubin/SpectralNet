@@ -137,7 +137,9 @@ def full_affinity(X, scale):
     Dx_scaled = Dx / (2 * sigma_squared)
     W = K.exp(-Dx_scaled)
     return W
-
+def gram_matrix(X):
+    W=tf.sqrt(tf.abs(tf.matmul(X,tf.transpose(X))))
+    return W
 def get_contrastive_loss(m_neg=1, m_pos=.2):
     '''
     Contrastive loss from Hadsell-et-al.'06

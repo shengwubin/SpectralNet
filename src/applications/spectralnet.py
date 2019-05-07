@@ -16,11 +16,11 @@ from keras.models import Model, load_model
 from keras.layers import Input, Lambda
 from keras.optimizers import RMSprop
 
-from core import train
-from core import costs
-from core import networks
-from core.layer import stack_layers
-from core.util import get_scale, print_accuracy, get_cluster_sols, LearningHandler, make_layer_list, train_gen, get_y_preds
+from src.core import train
+from src.core import costs
+from src.core import networks
+from src.core.layer import stack_layers
+from src.core.util import get_scale, print_accuracy, get_cluster_sols, LearningHandler, make_layer_list, train_gen, get_y_preds
 
 def run_net(data, params):
     #

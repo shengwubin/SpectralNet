@@ -98,7 +98,7 @@ class SpectralNet:
         if affinity == 'siamese':
             input_affinity = tf.concat([siamese_net.outputs['A'], siamese_net.outputs['Labeled']], axis=0)
             x_affinity = siamese_net.predict(x_train, batch_sizes)
-        elif affinity in ['knn', 'full']:
+        elif affinity in ['knn', 'full','gram']:
             input_affinity = tf.concat([self.inputs['Unlabeled'], self.inputs['Labeled']], axis=0)
             x_affinity = x_train
 
@@ -110,7 +110,8 @@ class SpectralNet:
             W = costs.full_affinity(input_affinity, scale=scale)
         elif affinity in ['knn', 'siamese']:
             W = costs.knn_affinity(input_affinity, n_nbrs, scale=scale, scale_nbr=scale_nbr)
-
+        elif affinity =='gram':
+            W=costs.gram_matrix(input_affinity)
         # if we have labels, use them
         if have_labeled:
             # get true affinities (from labeled data)
