@@ -131,7 +131,7 @@ class SpectralNet:
 
         # define loss
         self.loss = K.sum(W * self.Dy) / (2 * batch_sizes['Unlabeled'])
-
+        # self.loss = K.sum(W * self.Dy) / (batch_sizes['Unlabeled']**2)
         # create the train step update
         self.learning_rate = tf.Variable(0., name='spectral_net_learning_rate')
         self.train_step = tf.train.RMSPropOptimizer(learning_rate=self.learning_rate).minimize(self.loss, var_list=self.net.trainable_weights)
