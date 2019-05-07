@@ -12,7 +12,8 @@ from keras import backend as K
 from keras.datasets import mnist
 from keras.models import model_from_json
 
-from core import pairs
+from src.core import pairs
+from src.utils.data import generate_uos_data
 
 def get_data(params, data=None):
     '''
@@ -180,6 +181,12 @@ def load_data(params):
     elif params['dset'] == 'cc':
         x_train, x_test, y_train, y_test = generate_cc(params.get('n'), params.get('noise_sig'), params.get('train_set_fraction'))
         x_train, x_test = pre_process(x_train, x_test, params.get('standardize'))
+    elif params['dset']=='uos':
+        x_train,y_train=generate_uos_data(params.get('D'),params.get('d'),params.get('K'),params.get('N_k'),noisy=True)
+        x_test=np.array([]).reshape((0,params.get('D')))
+        y_test = np.array([]).flatten()
+        x_train=x_train.T
+        y_train=y_train.flatten()
     else:
         raise ValueError('Dataset provided ({}) is invalid!'.format(params['dset']))
 
